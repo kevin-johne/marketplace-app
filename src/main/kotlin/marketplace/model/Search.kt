@@ -9,7 +9,7 @@ object SearchHistory : UUIDTable("Search_history") {
   val distance = integer("distance")
   val term = text("term")
   val userId =
-    optReference("user_id", User.id, onDelete = ReferenceOption.CASCADE)
+    optReference("user_id", UserTable.id, onDelete = ReferenceOption.CASCADE)
 }
 
 object Location : UUIDTable("Location") {

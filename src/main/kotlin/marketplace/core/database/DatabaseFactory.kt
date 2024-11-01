@@ -7,13 +7,9 @@ import java.io.FileWriter
 
 class DriverFactory() {
   fun createDriver(): Database {
-
     val dbFilePath = getPath(isDebug = System.getenv("DEBUG") == "true")
-
     println("Filepath $dbFilePath")
     val driver = Database.connect("jdbc:sqlite:$dbFilePath")
-
-
     return driver
   }
 
@@ -36,5 +32,3 @@ class DriverFactory() {
     return dbFile.absolutePath
   }
 }
-
-fun createDatabase(driverFactory: DriverFactory) = driverFactory.createDriver()

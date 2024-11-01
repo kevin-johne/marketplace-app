@@ -8,7 +8,6 @@ project.ext.set("development", true)
 plugins {
   kotlin("jvm") version "2.0.21"
   id("io.ktor.plugin") version "3.0.0"
-  id("app.cash.sqldelight") version "2.0.2"
 }
 
 group = "marketplace"
@@ -19,6 +18,13 @@ application {
 
   val isDevelopment: Boolean = project.ext.has("development")
   applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
+tasks.register("build-db") {
+  group = "build"
+  description = "Builds the database"
+  dependsOn("installDist")
+  // we should create the db here and install all the migrations
 }
 
 repositories {
@@ -48,8 +54,9 @@ dependencies {
   implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
   implementation("org.jetbrains.exposed:exposed-json:$exposedVersion")
   implementation("org.jetbrains.exposed:exposed-money:$exposedVersion")
-  implementation("org.jetbrains.exposed:exposed-migration:$exposedVersion")
+//  implementation("org.jetbrains.exposed:exposed-migration:$exposedVersion")
   implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+  implementation("org.mindrot:jbcrypt:0.4")
 
   implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
   implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
